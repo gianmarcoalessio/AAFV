@@ -6,6 +6,38 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from agent.agent_architecture import agent_architecture
 from agent.noagent_architecture import noagent_architecture
 
+"""
+# Andare su `cd /home/ago/giammy/TESI-MAGISTRALE/models/llama.cpp`
+
+croswil/Llama_Llama-3.1-8B-Instruct 
+croswil/Llama_Llama-3.2-3B-Instruct 
+
+croswil/Qwen_Qwen2.5-1.5B-Instruct 
+croswil/Qwen_Qwen2.5-3B-Instruct 
+croswil/Qwen_Qwen2.5-7B-Instruct 
+
+./llama-server \
+  --hf-repo croswil/Qwen_Qwen2.5-1.5B-Instruct \
+  --hf-file unsloth.Q4_K_M.gguf
+
+./llama-server \
+  --hf-repo croswil/Qwen_Qwen2.5-3B-Instruct  \
+  --hf-file unsloth.Q4_K_M.gguf
+
+./llama-server \
+  --hf-repo croswil/Qwen_Qwen2.5-7B-Instruct  \
+  --hf-file Qwen2.5-7B-Instruct-Q4_K_M.gguf
+
+./llama-server \
+  --hf-repo croswil/Llama_Llama-3.2-3B-Instruct  \
+  --hf-file llama-3.2-3b-instruct-q4_k_m.gguf
+
+./llama-server \
+  --hf-repo croswil/Llama_Llama-3.1-8B-Instruct  \
+  --hf-file Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf
+
+"""
+
 
 
 def v002_generator_bfcl(test_entry, agent_network):
@@ -28,7 +60,7 @@ def v002_generator_bfcl(test_entry, agent_network):
       qwen_7b_endpoint = "https://hkkt5ay0stiz2sxy.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions"
       llama_3b_endpoint ="https://e36nbky8k2b92hp5.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions"
       llama_8b_endpoint ="https://l41j2vkrxy8txnck.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions"
-      huggingface_endpoint_url = qwen_7b_endpoint
+      huggingface_endpoint_url = local_endpoint
       
     TEMPERATURE = 0.1
     MAX_TURNS = 4

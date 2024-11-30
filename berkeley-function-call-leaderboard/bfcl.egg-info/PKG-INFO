@@ -160,6 +160,8 @@ If no `MODEL_NAME` is provided, the model `gorilla-openfunctions-v2` will be use
 
 ```bash
 bfcl generate --model MODEL_NAME --test-category TEST_CATEGORY --num-threads 1
+bfcl generate --model gpt-3.5-turbo-0125 --test-category simple --num-threads 8
+bfcl generate --model agent-network --test-category python_ast --num-threads 1
 ```
 
 You can optionally specify the number of threads to use for _parallel inference_ by setting the `--num-threads` flag to speed up inference for **hosted models**. The default is 1, which means no parallel inference. The maximum number of parallel inference depends on your API rate limit.

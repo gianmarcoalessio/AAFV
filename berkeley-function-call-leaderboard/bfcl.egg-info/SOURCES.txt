@@ -6,6 +6,7 @@ bfcl/_apply_function_credential_config.py
 bfcl/_llm_response_generation.py
 bfcl/constant.py
 bfcl/utils.py
+bfcl/v002_generator_bfcl.py
 bfcl.egg-info/PKG-INFO
 bfcl.egg-info/SOURCES.txt
 bfcl.egg-info/dependency_links.txt

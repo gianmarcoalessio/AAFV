@@ -1,5 +1,5 @@
 
-#### Quantized LLMs for Function Calling: Evaluating Agent-Augmented Qwen and LLama on the BFCL Non Live AST Benchmark
+# Quantized LLMs for Function Calling: Evaluating Agent-Augmented Qwen and LLama on the BFCL Non Live AST Benchmark
 
 This thesis explores the effectiveness of quantized large language models (LLMs), specifically Qwen \parencite{yang_qwen2_2024} and LLama \parencite{dubey_llama_2024} with 1.5B, 3B, 7B, 8B parameters, in addressing function calling tasks. The models will be evaluated using the BFCL
 Non Live AST Benchmark \parencite{fanjia_yan_berkeley_nodate}, both in their base version and with integrated agents \parencite{wu_autogen_2023}. As part of this study, a practical case will be presented to demonstrate the application of these models for the automatic creation of objects based on generic inputs (referred to as 'object calling input'), using a hierarchical structure with agents \parencite{patil_goex_2024}. The objective is to assess whether the integration of agents and inter-agent communication, through In Context Learning (ICL) \parencite{dong_survey_2024}, can enhance the performance of quantized models without the need for training and/or fine-tuning.
