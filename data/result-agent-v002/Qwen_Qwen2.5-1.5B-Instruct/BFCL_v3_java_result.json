@@ -1,0 +1,100 @@
+{"id": "java_0", "result": "[GeometryPresentation.createPresentation(controller='mapController', parent='mapArea')]"}
+{"id": "java_1", "result": "[SQLCompletionAnalyzer.makeProposalsFromObject(object=\"Customers\", useShortName=True, params={\"limit\": 50, \"schema\": \"public\", \"diet\": [\"Vegetarian\"]})]"}
+{"id": "java_2", "result": "[FireBirdUtils.getViewSourceWithHeader(view=\"EmployeeView\", source=\"SELECT * FROM Employee WHERE status = 'active' ON MARGIN dbMonitor AS (SELECT 'View creation in progress...' AS progress)\")]"}
+{"id": "java_3", "result": "[DB2Tablespace.resolveTablespaceReference(monitor=\"dbMonitor\", dataSource=\"db2DataSource\", reference=\"USERSPACE1\")]"}
+{"id": "java_4", "result": "[DB2ViewBaseDepCache.prepareObjectsStatement(session='jdbcSession', db2ViewBase='HR.EmployeeView')]"}
+{"id": "java_5", "result": "[recipe_search(dish='main course', time_limit=30)]"}
+{"id": "java_6", "result": "[SpreadsheetPresentation.refreshData(append=True, refreshMetadata=True, keepState=True)]"}
+{"id": "java_7", "result": "[EFSNIOResource.copy(destination=\"/backup/data.txt\", force=True, monitor=None)]"}
+{"id": "java_8", "result": "```python\nfrom threading import Thread\n\ndef update_file_contents(file_stream, force=True, keep_history=False, monitor=None):\n    thread = Thread(target=lambda: EFSNIOFile.setContents(source=file_stream, force=force, keepHistory=not keep_history, monitor=monitor))\n    thread.start()\n    thread.join()\n```"}
+{"id": "java_9", "result": "[writeMultiPoint(multiPoint=[(1, 2), (3, 4), (5, 6), (7, 8), (9, 10)], xyzmMode=\"XYZ\", buffer=None)]"}
+{"id": "java_10", "result": "[JNIBridge.setLauncherInfo(launcher=\"/usr/local/bin/dbeaver\", name=\"DBeaverLauncher\")]"}
+{"id": "java_11", "result": "[BasePolicyDataProvider.getRegistryPolicyValue(root=\"WinReg\", property=\"EnableExtensions\")]"}
+{"id": "java_12", "result": "[ExasolExecutionContext.setCurrentSchema(monitor='progressMonitor', schemaName='AnalyticsDB')]"}
+{"id": "java_13", "result": "[AltibaseGrantee.prepareObjectsStatement(session=None, owner='JohnDoe', 'JDBC_session', 'system_privileges', 'grantors', 'system_privileges')]"}
+{"id": "java_14", "result": "```json\n[{\"name\":\"FunGameBase.onFinish\",\"description\":\"Handles the finish event of the FunGame refresh header, updating the last finish status and handling manual operations if necessary.\",\"parameters\":{\"type\":\"dict\",\"properties\":{\"layout\":\"the RefreshLayout instance associated with the FunGame refresh header.\",\"success\":\"Indicates whether the refresh operation was successful.\"},\"required\":[\"layout\",\"success\"]}}]\n```"}
+{"id": "java_15", "result": "[Res9patchStreamDecoder.decode(input=imageInputStream, out=imageOutputStream)]"}
+{"id": "java_16", "result": "[InsnDecoder.invokePolymorphic(insn=\"range\", isRange=true, rangeParameters={\"diet\": [\"Gluten Free\"], \"timeLimit\": \"under 30 minutes\"})]"}
+{"id": "java_17", "result": "[GenericTypesVisitor.attachGenericTypesInfo(mth='ConstructorInvocation', insn='ConstructorInvocation', type='JavaConstructor', method='initMethod', diet=['Gluten Free'], dish='Main Course')]"}
+{"id": "java_18", "result": "[sys_role_controller.queryPageRoleCount(pageNo=3, pageSize=20)]"}
+{"id": "java_19", "result": "[PersonController.personal(model=webModel, request=userRequest)]"}
+{"id": "java_20", "result": "```json\n[HbaseAdapter.updateConfig(fileName=\"user-mapping.yml\", config={...}, outerAdapterKey=\"originalAdapterKey\", newMappingConfig=newMappingConfig, configType=\"yaml\")\n```"}
+{"id": "java_21", "result": "[SessionHandler.exceptionCaught(ctx='nettyChannelContext', e='ioExceptionEvent')]"}
+{"id": "java_22", "result": "[PmsProductServiceImpl.updateNewStatus(ids=[101, 202, 303], newStatus=2)]"}
+{"id": "java_23", "result": "[recipe_search(dish=\"main course\")]"}
+{"id": "java_24", "result": "[PmsProductCategoryController.updateShowStatus(ids=[101, 102, 103], showStatus=0)]"}
+{"id": "java_25", "result": "```python\nrecipe_search(time_limit=30)\n```"}
+{"id": "java_26", "result": "[ProxyConnection.prepareCall(sql=\"CALL totalSales(?)\", resultSetType=\"ResultSet.TYPE_SCROLL_INSENSITIVE\", concurrency=\"ResultSet.CONCUR_READ_ONLY\", holdability=\"ResultSet.HOLD_CURSORS_OVER_COMMIT\")]"}
+{"id": "java_27", "result": "[TwoSum(nums=[2, 7, 11, 15], target=9)]"}
+{"id": "java_28", "result": "```python\nconfigStorage.dynamicCredentialsScheduledExecutorService(\n    credentials_file=\"path/to/es_credentials.properties\",\n    credentials_refresh_interval=30,\n    basic_credentials=basic_auth_credentials\n)\n```"}
+{"id": "java_29", "result": "[propertyTransferredToCollectorBuilder(property=\"zipkin.collector.activemq.concurrency\", value=\"10\", builderExtractor=\"applyConcurrencySetting\")]"}
+{"id": "java_30", "result": "[lettuce().put(\"answer\", \"42\")]"}
+{"id": "java_31", "result": "[RedissonRx.getQueue(name='taskQueue', codec='jsonCodec')]"}
+{"id": "java_32", "result": "[RedissonPermitExpirableSemaphore.tryAcquireAsync(waitTime=5000, leaseTime=120000, unit=\"SECONDS\")]"}
+{"id": "java_33", "result": "[RedissonMapCache.putOperationAsync(key=\"user:123\", value=\"Alice Smith\")]"}
+{"id": "java_34", "result": "[ServiceManager.newTimeout(task=\"cleanupTask\", delay=30000, unit=\"MILLIS\")]"}
+{"id": "java_35", "result": "[RedissonConnection.bitOp(op='BitOperation.AND', destination=['user:online:both'], keys=['user:online:today', 'user:online:yesterday'])]"}
+{"id": "java_36", "result": "[ObjectMapEntryReplayDecoder.decode(parts=['userID', 42, 'username', 'johndoe', 'isActive', true], state=processingState)]"}
+{"id": "java_37", "result": "[buildOutput(dish='main course', time_limit=30)]"}
+{"id": "java_38", "result": "[recipe_search(dish='dessert', filteredSource={'diet': 'Gluten Free', 'timeLimit': 30, 'fields': {'name': {'type': 'string', 'required': True}, 'address': {'type': 'string', 'required': True}})]"}
+{"id": "java_39", "result": "```json\n[[\"appendNodeID(nodeId, logEvent)\"]]\n```"}
+{"id": "java_40", "result": "[RoutingNodesChangedObserver.shardInitialized(shardA, shardB)]"}
+{"id": "java_41", "result": "[SearchHit.declareInnerHitsParseFields(parser=\"searchHitParser\")]"}
+{"id": "java_42", "result": "[TermQueryBuilderTests.termQuery(mapper=\"usernameField\", value=\"JohnDoe\", caseInsensitive=True)]"}
+{"id": "java_43", "result": "[recipe_search(dish='gluten free', time_limit=30)]"}
+{"id": "java_44", "result": "[DesAPITest.init(crypt='DESede', mode='CBC', padding='PKCS5Padding')]"}
+{"id": "java_45", "result": "[Basic.checkSizes(environ=\"envVariables\", size=5)]"}
+{"id": "java_46", "result": "[MethodInvokeTest.checkCallerSensitiveMethodInjection(csmInstance, \"MyExpectedClass.class\", \"MyTestClass\", \"MyTestMethod\")]"}
+{"id": "java_47", "result": "[LargeHandshakeTest.format(name=\"CERTIFICATE\", value=\"MIIFDTCCBF2gAwIBAgISESG\"))]"}
+{"id": "java_48", "result": "[CookieHeaderTest.create(sa=\"192.168.1.10\", sslContext=\"testSSLContext\")]"}
+{"id": "java_49", "result": "[Http2TestExchangeImpl.sendResponseHeaders(rCode=404, responseLength=1500)]"}
+{"id": "java_50", "result": "[TransformIndexerStateTests.doDeleteByQuery(deleteByQueryRequest={\"query\": \"test query\"}, responseListener={\"type\": \"actionlisteners.ActionListener\", \"actionListener\": \"testListener\", \"time_limit\": 30})]"}
+{"id": "java_51", "result": "[execute_master_operation(host='localhost', port=9200)]"}
+{"id": "java_52", "result": "[recipe_search(dish='main course', time_limit=29)]"}
+{"id": "java_53", "result": "[VotingOnlyNodePlugin.fullMasterWithOlderState(localAcceptedTerm=42, localAcceptedVersion=7)]"}
+{"id": "java_54", "result": "[AbstractTransportSearchableSnapshotsAction.shardOperation(request=snapshotRequest, shardRouting=shardRouteInfo, task=snapshotTask, listener=operationListener)]"}
+{"id": "java_55", "result": "```java\nimport java.time.Instant;\nimport java.util.concurrent.Executors;\n\npublic class SnapshotDirectoryCreator {\n    private Instant currentTimeNanos;\n    private String shardPath;\n    private String repositoryName;\n    private String indexName;\n    private String indexSettingsName;\n    private String indexSettingsForLogsName;\n    private String blobStoreName;\n    private String sharedBlobCacheName;\n\n    public SnapshotDirectoryCreator() {\n    }\n\n    public void createSnapshotDirectory() {\n        // Calculate the time in nanoseconds for the new snapshot\n        Instant newTimeNanos = currentTimeNanos.plusSeconds(1); // Assuming a one-second gap for the new snapshot\n\n        // Create the new snapshot directory path\n        String newSnapshotPath = \"/data/nodes/0/indices/logs/5/\" + newTimeNanos.toString();\n\n        // Create the new snapshot directory\n        try (FileSystem fs = FileSystem.get()) {\n            fs.create(newPath, \"path\", \"name\");\n        }\n\n        // Store the new snapshot path in the repository\n        repositoriesService.storeNewSnapshotPath(repositoryName, indexName, indexSettingsName, indexSettingsForLogsName, blobStoreName, sharedBlobCacheName, newSnapshotPath);\n\n        // Log the creation of the new snapshot directory\n        logService.log(newSnapshotPath, \"New snapshot directory created\");\n    }\n\n    public static void main(String[] args) {\n        SnapshotDirectoryCreator creator = new SnapshotDirectoryCreator();\n        creator.currentTimeNanos = Instant.now().toEpochNano();\n        // Initialize other necessary services and repositoriesService, etc.\n\n        creator.createSnapshotDirectory();\n    }\n}\n```"}
+{"id": "java_56", "result": "[http_response_parser(entity=\"httpResponseEntity\", entityParser=\"responseParser\", parserConfig=\"defaultParserConfig\")]"}
+{"id": "java_57", "result": "[config_setting(enable_logging='yes', default=False)]"}
+{"id": "java_58", "result": "[recipe_search(dish='main course')]"}
+{"id": "java_59", "result": "[TruncateTranslogAction.execute(shardPath, indexDirectory)]"}
+{"id": "java_60", "result": "[NestedQueryBuilder.doBuild(parentSearchContext=\"mainSearchContext\", innerHitsContext=\"hitsContext\", nestedPath=\"user.dish\", ignoreUnmapped=False)]"}
+{"id": "java_61", "result": "[ScoreFunctionBuilders.exponentialDecayFunction(fieldName=\"timestamp\", origin=\"now\", scale=\"10d\", offset=\"2d\", decay=\"0.5\")]"}
+{"id": "java_62", "result": "['dvRangeQuery(field=\"temperature\", queryType=\"FLOAT\", from=20.5, to=30.0, includeFrom=True, includeTo=False)']"}
+{"id": "java_63", "result": "[withinQuery(field=\"age\", from=30, to=40, includeFrom=\"true\", includeTo=\"false\")]"}
+{"id": "java_64", "result": "[DateScriptFieldType.createFieldType(name=\"timestamp\", factory=\"dateFactory\", script=\"dateScript\", meta={\"format\": \"epoch_millis\"}, onScriptError=\"FAIL\")]"}
+{"id": "java_65", "result": "[RootObjectMapper.doXContent(builder=None, params={'dateDetection': true, 'dateFormats': ['\"yyyy-MM-dd\"', '\"yyyy-MM\"'], 'dynamicTemplates': ['\"%d/%m/%Y\"', '\"%M/%d/%Y\"'], 'numericDetection': true, 'includeHelp': true, 'dish': 'dessert'])]"}
+{"id": "java_66", "result": "[CompositeRuntimeField.createChildRuntimeField(parserContext='mappingParserContext', parent='compositeField1', parentScriptFactory='compositeScriptFactory', onScriptError='IGNORE')]"}
+{"id": "java_67", "result": "[MacDmgBundler.prepareDMGSetupScript(appLocation=\"/Applications/PhotoEditor.app\", params={\"app_name\": \"PhotoEditor\", \"images_root\": \"/Background/Images\", \"background_image\": \"/Background/BackgroundImage.jpg\", \"background_image_folder\": \"Background/BackgroundImage.jpg\", \"volume_url\": \"https://example.com/path/to/volume\", \"installation_dir\": \"/Applications/PhotoEditor.app\"})]"}
+{"id": "java_68", "result": "[mac_base_installer_bundler.validateApplicationImageAndBundlerParameters(params={'appPath': '/Applications/MyApp.app', 'appName': 'MyApp'}, parameters={'appImagePath': '/Applications/MyApp.app', 'appImagePath': '/Applications/MyApp.app', 'appPath': '/Applications/MyApp.app', 'appName': 'MyApp'})]"}
+{"id": "java_69", "result": "[DurationImpl.alignSigns(buf=durations, start=2, end=5)]"}
+{"id": "java_70", "result": "[recipe_search(dish='main course', time_limit=29)]"}
+{"id": "java_71", "result": "[CoroutineManager.co_switch(toCoroutine=10)]"}
+{"id": "java_72", "result": "[append_substring(ch=['textBuffer'], start=5, length=10)]"}
+{"id": "java_73", "result": "[Encodings.getEncodingInfo(encoding=\"UTF-8\", allowJavaNames=True)]"}
+{"id": "java_74", "result": "[BaseMarkupSerializer.surrogates(high=55357, low=56832, inContent=false)]"}
+{"id": "java_75", "result": "[JdkXmlFeatures.getSystemProperty(feature=\"XML_SECURITY\", sysPropertyName=\"enableXmlSecurityFeature\")]"}
+{"id": "java_76", "result": "[step(dish='main course', w=800, h=600)]"}
+{"id": "java_77", "result": "[JndiLoginModule.verifyPassword(encryptedPassword=\"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", password=\"P@ssw0rd!\")]"}
+{"id": "java_78", "result": "[OptionSpecBuilder(required=\"output-format\", dependent=\"output-format\", otherDependents=[\"quiet\", \"verbose\"])]"}
+{"id": "java_79", "result": "[sax_filter.resolveEntity(publicid=\"1234\", sysId=\"http://astro.com/stylesheets/toptemplate\")]"}
+{"id": "java_80", "result": "[RegexConstraint.initIRPattern(category=\"failOn\", ruleIdx=42)]"}
+{"id": "java_81", "result": "[func_name1(doGC=[{'type': 'dict', 'properties': {'testcaseData': {'type': 'String', 'description': 'The data for the test case to allocate the object graph.'}, 'doGC': {'type': 'any', 'description': 'A Runnable that triggers garbage collection.'}, 'checker': {'type': 'any', 'description': 'A Consumer that checks the object references after garbage collection.'}, 'gcLogName': {'type': 'String', 'description': 'The name of the garbage collector log file.'}, 'shouldContain': {'type': 'ArrayList', 'description': 'A list of strings that should be present in the garbage collector log.', 'items': {'type': 'String'}}, 'shouldNotContain': {'type': 'ArrayList', 'description': 'A list of strings that should not be present in the garbage collector log.', 'items': {'type': 'String'}}}, 'required': ['testcaseData', 'doGC', 'checker', 'gcLogName', 'shouldContain', 'shouldNotContain']}, {'type': 'String', 'description': 'The data for the test case to allocate the object graph.'}, {'type': 'any', 'description': 'A Runnable that triggers garbage collection.'}, {'type': 'any', 'description': 'A Consumer that checks the object references after garbage collection.'}, {'type': 'String', 'description': 'The name of the garbage collector log file.'}, {'type': 'ArrayList', 'description': 'A list of strings that should be present in the garbage collector log.', 'items': {'type': 'String'}}, {'type': 'ArrayList', 'description': 'A list of strings that should not be present in the garbage collector log.', 'items': {'type': 'String'}}], func_name2(TestObjectGraphAfterGC.doTesting={})]"}
+{"id": "java_82", "result": "[clear001a.runIt(args=['testArgs', 'logStream'])]"}
+{"id": "java_83", "result": "[thrcputime002.runIt(argv=['-waitTime', '10', '-iterations', '1000'], out='System.out')]"}
+{"id": "java_84", "result": "[checkInnerFields(redefCls=myRedefClass, expValue=100)]"}
+{"id": "java_85", "result": "[classfloadhk005.runIt(argv=['/path/to/classes', '60'], out=None, diet=['Gluten Free'], time_limit=29, dish='main course', expected_value_change='12345L', actual_value_change='54321L', logStream=logStream)]"}
+{"id": "java_86", "result": "[argumenttypes001.runThis(argv=['-v', '--no-strict'], out='debugOutput')]"}
+{"id": "java_87", "result": "[suspendpolicy017.settingVMDeathRequest(suspendPolicy=EVENT_THREAD, property='testProperty', debugMode=true)]"}
+{"id": "java_88", "result": "[filter_s002.setting22MethodEntryRequest(thread=\"mainThread\", testedClass=\"com.example.MainClass\", suspendPolicy=3, property=\"testProperty\")]"}
+{"id": "java_89", "result": "[runThis(waitTime='120', debuggeeName='TestDebuggee', argv={'waitTime': '120', 'debuggeeName': 'TestDebuggee'}, out={'type': 'PrintStream', 'description': 'A specific print stream for logging.'})]"}
+{"id": "java_90", "result": "[sourcepaths002.runIt(args=Arrays.asList(\"-v\", \"-p\"), out=\"System.out\")]"}
+{"id": "java_91", "result": "[runIt(args=['suspend', 'log'], out=debugLog, isDebugMode=True)]"}
+{"id": "java_92", "result": "[ClassFileFinder.findClassFile(name=\"com.example.MyClass\", classPath=[\"/usr/local/classes\", \"/home/user/java/libs\"], pathType=\"absolutePath\")]"}
+{"id": "java_93", "result": "[recipe_search(dish='main course')]"}
+{"id": "java_94", "result": "[NFILibrary.isMemberReadable(symbol=\"getVersion\")]"}
+{"id": "java_95", "result": "[ExportNodeTest.doGeneric(receiver=\"ExportInlinedObject1Instance\", argument=\"HelloWorld\", node=\"InlinableNodeInstance\", library=\"NodeLibraryInstance\")]"}
+{"id": "java_96", "result": "[InstrumentableProcessor.createCallConverter(converterMethod=\"convertValue\", frameParameterName=\"frameVar\", returnName=\"returnValueCode\")]"}
+{"id": "java_97", "result": "[FlatNodeGenFactory.generateIntrospectionInfo(clazz=\"NodeClass\", inlined=False)]"}
+{"id": "java_98", "result": "[LoopConditionProfile.calculateProbability(trueCountLocal=150, falseCountLocal=50)]"}
+{"id": "java_99", "result": "[LibraryExport.createDelegate(factory='myFactory', delegate='existingDelegate')]"}

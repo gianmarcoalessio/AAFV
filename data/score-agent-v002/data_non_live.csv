@@ -1,0 +1,2 @@
+Rank,Model,Non_Live Overall Acc,AST Summary,Exec Summary,Simple AST,Python Simple AST,Java Simple AST,JavaScript Simple AST,Multiple AST,Parallel AST,Parallel Multiple AST,Simple Exec,Python Simple Exec,REST Simple Exec,Multiple Exec,Parallel Exec,Parallel Multiple Exec,Irrelevance Detection
+1,Qwen2.5-1.5B-Instruct (Prompt),14.06%,31.65%,0.00%,38.08%,63.25%,25.00%,26.00%,55.00%,18.00%,15.50%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%

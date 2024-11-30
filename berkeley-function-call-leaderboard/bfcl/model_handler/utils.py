@@ -5,11 +5,13 @@ import json
 import os
 import re
 
-from bfcl.model_handler.constant import DEFAULT_SYSTEM_PROMPT, GORILLA_TO_OPENAPI
+from bfcl.model_handler.constant import (
+    DEFAULT_SYSTEM_PROMPT,
+    GORILLA_TO_OPENAPI,
+)
 from bfcl.model_handler.model_style import ModelStyle
 from bfcl.model_handler.parser.java_parser import parse_java_function_call
 from bfcl.model_handler.parser.js_parser import parse_javascript_function_call
-from tenacity import retry, retry_if_exception_type, wait_random_exponential
 
 
 def _cast_to_openai_type(properties, mapping):
@@ -219,7 +221,6 @@ def convert_to_tool(functions, mapping, model_style):
                 ModelStyle.Anthropic,
                 ModelStyle.Google,
                 ModelStyle.FIREWORK_AI,
-                ModelStyle.WRITER,
             ]:
                 item[
                     "description"
@@ -253,7 +254,6 @@ def convert_to_tool(functions, mapping, model_style):
             ModelStyle.OpenAI,
             ModelStyle.Mistral,
             ModelStyle.FIREWORK_AI,
-            ModelStyle.WRITER,
         ]:
             oai_tool.append({"type": "function", "function": item})
     return oai_tool
@@ -262,14 +262,11 @@ def convert_to_tool(functions, mapping, model_style):
 def convert_to_function_call(function_call_list):
     if type(function_call_list) == dict:
         function_call_list = [function_call_list]
-    # function_call_list is of type list[dict[str, str]] or list[dict[str, dict]]
     execution_list = []
     for function_call in function_call_list:
         for key, value in function_call.items():
-            if type(value) == str:
-                value = json.loads(value)
             execution_list.append(
-                f"{key}({','.join([f'{k}={repr(v)}' for k,v in value.items()])})"
+                f"{key}({','.join([f'{k}={repr(v)}' for k,v in json.loads(value).items()])})"
             )
 
     return execution_list
@@ -438,6 +435,34 @@ def combine_consecutive_user_prompts(prompts: list[dict]) -> list[dict]:
 
     return combined_prompts
 
+def system_prompt_pre_processing_assistant_model(prompts, system_prompt_template, function_docs):
+
+    parameters_array = []
+    for func in function_docs:
+        func_name = func.get('name')
+        params = func.get('parameters', {}).get('properties', {})
+        required_params = func.get('parameters', {}).get('required', [])
+        param_list = []
+        for param_name, param_info in params.items():
+            param_entry = {
+                'name': param_name,
+                'type': param_info.get('type'),
+                'description': param_info.get('description'),
+                'required': param_name in required_params
+            }
+            param_list.append(param_entry)
+        parameters_array.append({
+            'parameters': param_list
+        })
+
+    system_prompt = system_prompt_template.format(parameters=parameters_array)
+
+    prompts.insert(
+            0,
+            {"role": "system", "content": system_prompt},
+    )
+
+    return prompts
 
 def _get_language_specific_hint(test_category):
     if test_category == "java":
@@ -817,27 +842,3 @@ def decoded_output_to_execution_list(decoded_output):
             args_str = ", ".join(f"{k}={parse_nested_value(v)}" for k, v in value.items())
             execution_list.append(f"{key}({args_str})")
     return execution_list
-
-
-def retry_with_backoff(error_type, min_wait=6, max_wait=120):
-    """
-    General decorator to retry with backoff for a specific error type.
-
-    :param error_type: The exception type to retry on.
-    :param min_wait: Minimum wait time for the backoff.
-    :param max_wait: Maximum wait time for the backoff.
-    """
-
-    def decorator(func):
-        @retry(
-            wait=wait_random_exponential(min=min_wait, max=max_wait),
-            retry=retry_if_exception_type(error_type),
-            before_sleep=lambda retry_state: print(
-                f"Attempt {retry_state.attempt_number} failed. Sleeping for {float(round(retry_state.next_action.sleep, 2))} seconds before retrying..."
-                f"Error: {retry_state.outcome.exception()}"
-            ),
-        )
-        def wrapped(*args, **kwargs):
-            return func(*args, **kwargs)
-        return wrapped
-    return decorator

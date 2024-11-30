@@ -1,0 +1,2 @@
+Unnamed: 0,Overall Acc,Model,Cost ($),Mean,SD,P95,AST Summary,Simple,Multiple,Parallel,Multiple Parallel,Exec Summary,Simple.1,Multiple.1,Parallel.1,Multiple Parallel.1,Overall Acc.1,Simple.2,Multiple.2,Parallel.2,Multiple Parallel.2,Overall Acc.2,Base,Miss Func,Miss Param,Long Context,Composite,Relevance,Irrelevance,Organization,License
+36,48.82,Qwen2.5-1.5B-Instruct (Prompt),,,,,75.19,70.25,85.5,73.5,71.5,82.82,72.79,94,82,82.5,61.71,64.73,59.88,50.0,41.67,6.62,7.5,6.0,6.0,7.0,,75.61,67.17,Qwen,apache-2.0

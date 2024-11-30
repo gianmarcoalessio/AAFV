@@ -1,11 +1,17 @@
 from bfcl.model_handler.handler_map import local_inference_handler_map
 
 MODEL_METADATA_MAPPING = {
-    "palmyra-x-004": [
-        "palmyra-x-004 (FC)",
-        "https://writer.com/engineering/actions-with-palmyra-x-004/",
-        "Writer",
-        "Proprietary",
+    "agent-network-gpt": [
+        "",
+        "",
+        "",
+        "",
+    ],
+    "agent-network": [
+        "",
+        "",
+        "",
+        "",
     ],
     "o1-preview-2024-09-12": [
         "o1-preview-2024-09-12 (Prompt)",
@@ -98,7 +104,7 @@ MODEL_METADATA_MAPPING = {
         "Apache 2.0",
     ],
     "claude-3-opus-20240229-FC": [
-        "Claude-3-Opus-20240229 (FC)",
+        "Claude-3-Opus-20240229 (FC tools-2024-04-04)",
         "https://www.anthropic.com/news/claude-3-family",
         "Anthropic",
         "Proprietary",
@@ -158,7 +164,7 @@ MODEL_METADATA_MAPPING = {
         "Proprietary",
     ],
     "claude-3-sonnet-20240229-FC": [
-        "Claude-3-Sonnet-20240229 (FC)",
+        "Claude-3-Sonnet-20240229 (FC tools-2024-04-04)",
         "https://www.anthropic.com/news/claude-3-family",
         "Anthropic",
         "Proprietary",
@@ -170,7 +176,7 @@ MODEL_METADATA_MAPPING = {
         "Proprietary",
     ],
     "claude-3-haiku-20240307-FC": [
-        "Claude-3-Haiku-20240307 (FC)",
+        "Claude-3-Haiku-20240307 (FC tools-2024-04-04)",
         "https://www.anthropic.com/news/claude-3-family",
         "Anthropic",
         "Proprietary",
@@ -178,18 +184,6 @@ MODEL_METADATA_MAPPING = {
     "claude-3-haiku-20240307": [
         "Claude-3-Haiku-20240307 (Prompt)",
         "https://www.anthropic.com/news/claude-3-family",
-        "Anthropic",
-        "Proprietary",
-    ],
-    "claude-3-5-haiku-20241022-FC": [
-        "claude-3.5-haiku-20241022 (FC)",
-        "https://www.anthropic.com/news/3-5-models-and-computer-use",
-        "Anthropic",
-        "Proprietary",
-    ],
-    "claude-3-5-haiku-20241022": [
-        "claude-3.5-haiku-20241022 (Prompt)",
-        "https://www.anthropic.com/news/3-5-models-and-computer-use",
         "Anthropic",
         "Proprietary",
     ],
@@ -202,18 +196,6 @@ MODEL_METADATA_MAPPING = {
     "claude-3-5-sonnet-20240620": [
         "Claude-3.5-Sonnet-20240620 (Prompt)",
         "https://www.anthropic.com/news/claude-3-5-sonnet",
-        "Anthropic",
-        "Proprietary",
-    ],
-    "claude-3-5-sonnet-20241022-FC": [
-        "Claude-3.5-Sonnet-20241022 (FC)",
-        "https://www.anthropic.com/news/3-5-models-and-computer-use",
-        "Anthropic",
-        "Proprietary",
-    ],
-    "claude-3-5-sonnet-20241022": [
-        "Claude-3.5-Sonnet-20241022 (Prompt)",
-        "https://www.anthropic.com/news/3-5-models-and-computer-use",
         "Anthropic",
         "Proprietary",
     ],
@@ -361,35 +343,11 @@ MODEL_METADATA_MAPPING = {
         "OpenAI",
         "Proprietary",
     ],
-    "deepseek-ai/DeepSeek-V2.5": [
-        "DeepSeek-V2.5 (FC)",
-        "https://huggingface.co/deepseek-ai/DeepSeek-V2.5",
-        "DeepSeek",
-        "DeepSeek License"
-    ],
-    "deepseek-ai/DeepSeek-Coder-V2-Instruct-0724": [
-        "DeepSeek-Coder-V2 (FC)",
-        "https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct-0724",
-        "DeepSeek",
-        "DeepSeek License"
-    ],
-    "deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct": [
-        "DeepSeek-Coder-V2-Lite-Instruct (FC)",
-        "https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct",
-        "DeepSeek",
-        "DeepSeek License"
-    ],
-    "deepseek-ai/DeepSeek-V2-Chat-0628": [
-        "DeepSeek-V2 (Prompt)",
-        "https://huggingface.co/deepseek-ai/DeepSeek-V2-Chat-0628",
-        "DeepSeek",
-        "DeepSeek License",
-    ],
-    "deepseek-ai/DeepSeek-V2-Lite-Chat": [
-        "DeepSeek-V2-Lite (Prompt)",
-        "https://huggingface.co/deepseek-ai/DeepSeek-V2-Lite-Chat",
-        "DeepSeek",
-        "DeepSeek License",
+    "deepseek-ai/deepseek-coder-6.7b-instruct": [
+        "Deepseek-v1.5 (Prompt)",
+        "https://huggingface.co/deepseek-ai/deepseek-coder-7b-instruct-v1.5",
+        "Deepseek",
+        "Deepseek License",
     ],
     "google/gemma-7b-it": [
         "Gemma-7b-it (Prompt)",
@@ -673,15 +631,15 @@ MODEL_METADATA_MAPPING = {
         "Qwen",
         "apache-2.0",
     ],
-    "Qwen/Qwen2.5-7B-Instruct": [
-        "Qwen2.5-7B-Instruct (Prompt)",
-        "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct",
+    "Qwen/Qwen2.5-3B-Instruct": [
+        "Qwen2.5-3B-Instruct (Prompt)",
+        "https://huggingface.co/Qwen/Qwen2.5-3B-Instruct",
         "Qwen",
         "apache-2.0",
     ],
-    "Qwen/Qwen2.5-72B-Instruct": [
-        "Qwen2.5-72B-Instruct (Prompt)",
-        "https://huggingface.co/Qwen/Qwen2.5-72B-Instruct",
+    "Qwen/Qwen2.5-7B-Instruct": [
+        "Qwen2.5-7B-Instruct (Prompt)",
+        "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct",
         "Qwen",
         "apache-2.0",
     ],
@@ -692,13 +650,7 @@ MODEL_METADATA_MAPPING = {
         "Apache-2.0",
     ],
     "openbmb/MiniCPM3-4B": [
-        "MiniCPM3-4B (Prompt)",
-        "https://huggingface.co/openbmb/MiniCPM3-4B",
-        "openbmb",
-        "Apache-2.0",
-    ],
-    "openbmb/MiniCPM3-4B-FC": [
-        "MiniCPM3-4B-FC (FC)",
+        "MiniCPM3-4B (FC)",
         "https://huggingface.co/openbmb/MiniCPM3-4B",
         "openbmb",
         "Apache-2.0",
@@ -716,14 +668,10 @@ INPUT_PRICE_PER_MILLION_TOKEN = {
     "claude-3-opus-20240229": 15,
     "claude-3-sonnet-20240229-FC": 3,
     "claude-3-sonnet-20240229": 3,
-    "claude-3-5-sonnet-20240620-FC": 3,
-    "claude-3-5-sonnet-20240620": 3,
-    "claude-3-5-sonnet-20241022-FC": 3,
-    "claude-3-5-sonnet-20241022": 3,
     "claude-3-haiku-20240307-FC": 0.25,
     "claude-3-haiku-20240307": 0.25,
-    "claude-3-5-haiku-20241022-FC": 1,
-    "claude-3-5-haiku-20241022": 1,
+    "claude-3-5-sonnet-20240620-FC": 3,
+    "claude-3-5-sonnet-20240620": 3,
     "claude-2.1": 8,
     "claude-instant-1.2": 0.8,
     "open-mistral-nemo-2407": 0.3,
@@ -759,10 +707,10 @@ INPUT_PRICE_PER_MILLION_TOKEN = {
     "gemini-1.5-pro-002-FC": 1.25,
     "gemini-1.5-pro-001": 1.25,
     "gemini-1.5-pro-001-FC": 1.25,
-    "gemini-1.5-flash-002": 0.075,
-    "gemini-1.5-flash-002-FC": 0.075,
-    "gemini-1.5-flash-001": 0.075,
-    "gemini-1.5-flash-001-FC": 0.075,
+    "gemini-1.5-flash-002": 0.075 ,
+    "gemini-1.5-flash-002-FC": 0.075 ,
+    "gemini-1.5-flash-001": 0.075 ,
+    "gemini-1.5-flash-001-FC": 0.075 ,
     "gemini-1.0-pro-002": 0.5,
     "gemini-1.0-pro-002-FC": 0.5,
     "databricks-dbrx-instruct": 2.25,
@@ -771,7 +719,6 @@ INPUT_PRICE_PER_MILLION_TOKEN = {
     "command-r-plus-FC-optimized": 3,
     "command-r-plus-optimized": 3,
     "yi-large-fc": 3,
-    "palmyra-x-004": 5,
 }
 
 OUTPUT_PRICE_PER_MILLION_TOKEN = {
@@ -781,12 +728,8 @@ OUTPUT_PRICE_PER_MILLION_TOKEN = {
     "claude-3-sonnet-20240229": 15,
     "claude-3-5-sonnet-20240620-FC": 15,
     "claude-3-5-sonnet-20240620": 15,
-    "claude-3-5-sonnet-20241022-FC": 15,
-    "claude-3-5-sonnet-20241022": 15,
     "claude-3-haiku-20240307-FC": 1.25,
     "claude-3-haiku-20240307": 1.25,
-    "claude-3-5-haiku-20241022-FC": 5,
-    "claude-3-5-haiku-20241022": 5,
     "claude-2.1": 24,
     "claude-instant-1.2": 2.4,
     "open-mistral-nemo-2407": 0.3,
@@ -834,15 +777,15 @@ OUTPUT_PRICE_PER_MILLION_TOKEN = {
     "command-r-plus-FC-optimized": 15,
     "command-r-plus-optimized": 15,
     "yi-large-fc": 3,
-    "palmyra-x-004": 12,
 }
 
 # The latency of the open-source models are hardcoded here.
 # Because we do batching when generating the data, so the latency is not accurate from the result data.
 # This is the latency for the whole batch of data, when using 8 V100 GPUs.
-OSS_LATENCY = {}
+OSS_LATENCY = {
+}
 
-# All OSS models will have no cost shown on the leaderboard.
+# All OSS models will have no cost shown on the leaderboard. 
 NO_COST_MODELS = list(local_inference_handler_map.keys())
 # The following models will also have no cost, even though they are queries through the API.
 NO_COST_MODELS += [
@@ -853,4 +796,17 @@ NO_COST_MODELS += [
     "meetkai/functionary-medium-v3.1-FC",
     "snowflake/arctic",
     "nvidia/nemotron-4-340b-instruct",
+    "ibm-granite/granite-20b-functioncalling",
+    "THUDM/glm-4-9b-chat",
+    "Salesforce/xLAM-1b-fc-r",
+    "Salesforce/xLAM-7b-fc-r",
+    "Salesforce/xLAM-7b-r",
+    "Salesforce/xLAM-8x7b-r",
+    "Salesforce/xLAM-8x22b-r",
+     "Team-ACE/ToolACE-8B",
+    "MadeAgents/Hammer2.0-7b",
+    "MadeAgents/Hammer2.0-3b",
+    "MadeAgents/Hammer2.0-1.5b",
+    "MadeAgents/Hammer2.0-0.5b",
+    "BitAgent/GoGoAgent",
 ]

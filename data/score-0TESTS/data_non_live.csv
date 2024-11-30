@@ -1,0 +1,4 @@
+Rank,Model,Non_Live Overall Acc,AST Summary,Exec Summary,Simple AST,Python Simple AST,Java Simple AST,JavaScript Simple AST,Multiple AST,Parallel AST,Parallel Multiple AST,Simple Exec,Python Simple Exec,REST Simple Exec,Multiple Exec,Parallel Exec,Parallel Multiple Exec,Irrelevance Detection
+1,GPT-3.5-Turbo-0125 (Prompt),7.59%,17.08%,0.00%,68.33%,100.00%,55.00%,50.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%
+2,Qwen2.5-1.5B-Instruct (Prompt),3.70%,8.33%,0.00%,33.33%,100.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%
+3,GPT-3.5-Turbo-0125 (Prompt),3.70%,8.33%,0.00%,33.33%,100.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%,0.00%

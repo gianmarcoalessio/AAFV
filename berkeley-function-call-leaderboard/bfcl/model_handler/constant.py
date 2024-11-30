@@ -106,12 +106,15 @@ JS_TYPE_CONVERSION = {
     "float": float,
     "Bigint": int,
     "Boolean": bool,
+    "boolean": bool,
     "dict": dict,
     "array": list,
     "any": str,
 }
 
 UNDERSCORE_TO_DOT = [
+    # "agent-framework-gpt",
+    # "agent-framework",
     "gpt-4o-2024-08-06-FC",
     "gpt-4o-2024-05-13-FC",
     "gpt-4o-mini-2024-07-18-FC",
@@ -122,10 +125,8 @@ UNDERSCORE_TO_DOT = [
     "gpt-3.5-turbo-0125-FC",
     "claude-3-opus-20240229-FC",
     "claude-3-sonnet-20240229-FC",
-    "claude-3-5-sonnet-20240620-FC",
-    "claude-3-5-sonnet-20241022-FC",
     "claude-3-haiku-20240307-FC",
-    "claude-3-5-haiku-20241022-FC",
+    "claude-3-5-sonnet-20240620-FC",
     "open-mistral-nemo-2407-FC",
     "open-mixtral-8x22b-FC",
     "mistral-large-2407-FC",
@@ -150,5 +151,4 @@ UNDERSCORE_TO_DOT = [
     "THUDM/glm-4-9b-chat",
     "ibm-granite/granite-20b-functioncalling",
     "yi-large-fc",
-    "openbmb/MiniCPM3-4B-FC",
 ]

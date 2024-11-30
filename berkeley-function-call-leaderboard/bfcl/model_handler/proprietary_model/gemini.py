@@ -11,10 +11,8 @@ from bfcl.model_handler.utils import (
     extract_system_prompt,
     format_execution_results_prompting,
     func_doc_language_specific_pre_processing,
-    retry_with_backoff,
     system_prompt_pre_processing_chat_model,
 )
-from google.api_core.exceptions import ResourceExhausted
 from vertexai.generative_models import (
     Content,
     FunctionDeclaration,
@@ -71,10 +69,6 @@ class GeminiHandler(BaseHandler):
                     )
             return func_call_list
 
-    @retry_with_backoff(ResourceExhausted)
-    def generate_with_backoff(self, client, **kwargs):
-        return client.generate_content(**kwargs)
-
     #### FC methods ####
 
     def _query_FC(self, inference_data: dict):
@@ -90,10 +84,7 @@ class GeminiHandler(BaseHandler):
                 )
             )
 
-        if func_declarations:
-            tools = [Tool(function_declarations=func_declarations)]
-        else:
-            tools = None
+        tools = [Tool(function_declarations=func_declarations)]
 
         inference_data["inference_input_log"] = {
             "message": repr(inference_data["message"]),
@@ -109,17 +100,21 @@ class GeminiHandler(BaseHandler):
                 self.model_name.replace("-FC", ""),
                 system_instruction=inference_data["system_prompt"],
             )
+            api_response = client.generate_content(
+                contents=inference_data["message"],
+                generation_config=GenerationConfig(
+                    temperature=self.temperature,
+                ),
+                tools=tools if len(tools) > 0 else None,
+            )
         else:
-            client = self.client
-
-        api_response = self.generate_with_backoff(
-            client=client,
-            contents=inference_data["message"],
-            generation_config=GenerationConfig(
-                temperature=self.temperature,
-            ),
-            tools=tools
-        )
+            api_response = self.client.generate_content(
+                contents=inference_data["message"],
+                generation_config=GenerationConfig(
+                    temperature=self.temperature,
+                ),
+                tools=tools if len(tools) > 0 else None,
+            )
         return api_response
 
     def _pre_query_processing_FC(self, inference_data: dict, test_entry: dict) -> dict:
@@ -166,14 +161,6 @@ class GeminiHandler(BaseHandler):
                 text_parts.append(part.text)
 
         model_responses = fc_parts if fc_parts else text_parts
-        
-        if len(api_response.candidates[0].content.parts) == 0:
-            response_function_call_content = Content(
-                role="model",
-                parts=[
-                    Part.from_text("The model did not return any response."),
-                ],
-            )
 
         return {
             "model_responses": model_responses,
@@ -250,15 +237,19 @@ class GeminiHandler(BaseHandler):
                 self.model_name.replace("-FC", ""),
                 system_instruction=inference_data["system_prompt"],
             )
+            api_response = client.generate_content(
+                contents=inference_data["message"],
+                generation_config=GenerationConfig(
+                    temperature=self.temperature,
+                ),
+            )
         else:
-            client = self.client
-        api_response = self.generate_with_backoff(
-            client=client,
-            contents=inference_data["message"],
-            generation_config=GenerationConfig(
-                temperature=self.temperature,
-            ),
-        )
+            api_response = self.client.generate_content(
+                contents=inference_data["message"],
+                generation_config=GenerationConfig(
+                    temperature=self.temperature,
+                ),
+            )
         return api_response
 
     def _pre_query_processing_prompting(self, test_entry: dict) -> dict:
@@ -284,6 +275,13 @@ class GeminiHandler(BaseHandler):
             return {"message": []}
 
     def _parse_query_response_prompting(self, api_response: any) -> dict:
+        # Note: Same issue as with mentioned in `_parse_query_response_FC` method
+        # According to the Vertex AI documentation, `api_response.text` should be enough.
+        # However, under the hood, it is calling `api_response.candidates[0].content.parts[0].text` which is causing the issue
+        """TypeError: argument of type 'Part' is not iterable"""
+        # So again, we need to directly access the `api_response.candidates[0].content.parts[0]._raw_part.text` attribute to get the text content of the part
+        # This is a workaround for this bug, until the bug is fixed
+
         if len(api_response.candidates[0].content.parts) > 0:
             model_responses = api_response.text
         else:

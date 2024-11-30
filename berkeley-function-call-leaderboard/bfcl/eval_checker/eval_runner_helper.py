@@ -1,10 +1,8 @@
 import os
 import statistics
-from datetime import datetime
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
 from bfcl._apply_function_credential_config import apply_function_credential_config
 from bfcl.eval_checker.constant import *
 from bfcl.eval_checker.executable_eval.custom_exception import BadAPIStatusError
@@ -185,9 +183,10 @@ def record_cost_latency(leaderboard_table, model_name, model_output_data):
     output_token = []
     latency = []
     for data in model_output_data:
-        process_data("latency", data, latency)
-        process_data("input_token_count", data, input_token)
-        process_data("output_token_count", data, output_token)
+        for data in model_output_data:
+            process_data("latency", data, latency)
+            process_data("input_token_count", data, input_token)
+            process_data("output_token_count", data, output_token)
 
     leaderboard_table[model_name]["cost"]["input_data"].extend(input_token)
     leaderboard_table[model_name]["cost"]["output_data"].extend(output_token)
@@ -241,7 +240,6 @@ def get_cost_letency_info(model_name, cost_data, latency_data):
 
     return cost, mean_latency, std_latency, percentile_95_latency
 
-
 # TODO: Refactor this function to reduce code duplication
 def generate_leaderboard_csv(
     leaderboard_table, output_path, eval_models=None, eval_categories=None
@@ -253,13 +251,13 @@ def generate_leaderboard_csv(
     data_combined = []
     for model_name, value in leaderboard_table.items():
         model_name_escaped = model_name.replace("_", "/")
-
+        
         cost_data = value.get("cost", {"input_data": [], "output_data": []})
         latency_data = value.get("latency", {"data": []})
         cost, latency_mean, latency_std, percentile_95_latency = get_cost_letency_info(
             model_name_escaped, cost_data, latency_data
         )
-
+        
         # Non-Live Score
         python_simple_ast_non_live = value.get("simple", {"accuracy": 0, "total_count": 0})
         python_multiple_ast_non_live = value.get(
@@ -346,7 +344,7 @@ def generate_leaderboard_csv(
                 irrelevance_non_live["accuracy"],
             ]
         )
-
+        
         # Live Score
         python_simple_ast_live = value.get(
             "live_simple", {"accuracy": 0, "total_count": 0}
@@ -383,7 +381,7 @@ def generate_leaderboard_csv(
                 relevance_live,
             ]
         )
-
+        
         data_live.append(
             [
                 "N/A",
@@ -398,7 +396,7 @@ def generate_leaderboard_csv(
                 relevance_live["accuracy"],
             ]
         )
-
+        
         # Multi-Turn Score
         multi_turn_base = value.get("multi_turn_base", {"accuracy": 0, "total_count": 0})
         multi_turn_miss_func = value.get(
@@ -430,12 +428,12 @@ def generate_leaderboard_csv(
                 multi_turn_long_context["accuracy"],
             ]
         )
-
+        
         # Total Score
         single_turn_ast = calculate_unweighted_accuracy([overall_accuracy_live, overall_accuracy_non_live])
         total_irrelevance = calculate_unweighted_accuracy([irrelevance_non_live, irrelevance_live])
         total_relevance = relevance_live
-
+        
         total_overall_accuracy = calculate_unweighted_accuracy(
             [
                 overall_accuracy_live,
@@ -480,7 +478,7 @@ def generate_leaderboard_csv(
                 MODEL_METADATA_MAPPING[model_name_escaped][3],
             ]
         )
-
+        
     # Write Non-Live Score File
     data_non_live.sort(key=lambda x: x[2], reverse=True)
     for i in range(len(data_non_live)):
@@ -497,7 +495,7 @@ def generate_leaderboard_csv(
                 f.write(",".join(row) + "\n")
             else:
                 f.write(",".join(row))
-
+    
     # Write Live Score File
     data_live.sort(key=lambda x: x[2], reverse=True)
     for i in range(len(data_live)):
@@ -562,60 +560,6 @@ def generate_leaderboard_csv(
     #         category_status, eval_models=eval_models, eval_categories=eval_categories
     #     )
 
-    wandb_project = os.getenv("WANDB_BFCL_PROJECT")
-    if wandb_project and wandb_project != "ENTITY:PROJECT":
-        import wandb
-
-        # Initialize WandB run
-        wandb.init(
-            # wandb_project is 'entity:project'
-            entity=wandb_project.split(":")[0],
-            project=wandb_project.split(":")[1],
-            name=f"BFCL-v3-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
-        )
-
-        # Log CSV files to WandB
-        # Read the CSV files
-        non_live_df = pd.read_csv(output_path / "data_non_live.csv")
-        live_df = pd.read_csv(output_path / "data_live.csv")
-        multi_turn_df = pd.read_csv(output_path / "data_multi_turn.csv")
-        overall_df = pd.read_csv(output_path / "data_overall.csv")
-
-        # Convert DataFrames to WandB Tables
-        non_live_table = wandb.Table(dataframe=non_live_df)
-        live_table = wandb.Table(dataframe=live_df)
-        multi_turn_table = wandb.Table(dataframe=multi_turn_df)
-        overall_table = wandb.Table(dataframe=overall_df)
-
-        # Create artifacts
-        bfcl_artifact = wandb.Artifact("bfcl_results", type="dataset")
-
-        # Add tables to artifact
-        bfcl_artifact.add(non_live_table, "non_live_results")
-        bfcl_artifact.add(live_table, "live_results")
-        bfcl_artifact.add(multi_turn_table, "multi_turn_results")
-        bfcl_artifact.add(overall_table, "overall_results")
-
-        # Add raw CSV files to artifact
-        bfcl_artifact.add_file(str(output_path / "data_non_live.csv"))
-        bfcl_artifact.add_file(str(output_path / "data_live.csv"))
-        bfcl_artifact.add_file(str(output_path / "data_multi_turn.csv"))
-        bfcl_artifact.add_file(str(output_path / "data_overall.csv"))
-
-        # Log tables directly
-        wandb.log(
-            {
-                "Non-Live Results": non_live_table,
-                "Live Results": live_table,
-                "Multi-Turn Results": multi_turn_table,
-                "Overall Results": overall_table,
-            }
-        )
-
-        # Log artifact
-        wandb.log_artifact(bfcl_artifact)
-        wandb.finish()
-
 
 def check_model_category_status(score_path):
     result_path = score_path.replace("score", "result")
@@ -654,7 +598,7 @@ def check_model_category_status(score_path):
         result_subdir = os.path.join(result_path, model_name)
         if os.path.exists(result_subdir):
             for result_file in os.listdir(result_subdir):
-                if result_file.endswith(".json"):
+                if result_file.endswith('.json'):
                     test_category = extract_test_category(result_file)
                     if test_category in category_status[model_name]:
                         category_status[model_name][test_category]["generated"] = True
@@ -697,8 +641,8 @@ def check_all_category_present(category_status, eval_models=None, eval_categorie
             if first_time:
                 print(f"We are checking models: {eval_models} and categories: {eval_categories}")
                 print(f"\n{RED_FONT}{'=' * 30} Model Category Status {'=' * 30}{RESET}")
-                first_time = False
-
+                first_time = False       
+ 
             print(f"{RED_FONT}Model: {model_name}{RESET}")
             if not_generated:
                 print(f"\n  Missing results for {len(not_generated)} categories:")

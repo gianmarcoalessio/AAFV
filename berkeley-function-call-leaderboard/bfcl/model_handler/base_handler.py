@@ -14,8 +14,7 @@ from bfcl.model_handler.constant import (
     MAXIMUM_STEP_LIMIT,
 )
 from bfcl.model_handler.model_style import ModelStyle
-from bfcl.utils import load_file, make_json_serializable, sort_key
-from overrides import final
+from bfcl.utils import make_json_serializable
 
 
 class BaseHandler:
@@ -53,7 +52,6 @@ class BaseHandler:
                     test_entry, include_input_log
                 )
 
-    @final
     def inference_multi_turn_FC(
         self, test_entry: dict, include_input_log: bool, include_state_log: bool
     ) -> tuple[list[list], dict]:
@@ -164,7 +162,7 @@ class BaseHandler:
                 if include_input_log:
                     current_step_inference_log.append(
                         {
-                            "role": "inference_input",
+                            "role": "handler_log",
                             "content": inference_data.get("inference_input_log", ""),
                         }
                     )
@@ -298,7 +296,6 @@ class BaseHandler:
 
         return all_model_response, metadata
 
-    @final
     def inference_multi_turn_prompting(
         self, test_entry: dict, include_input_log: bool, include_state_log: bool
     ) -> tuple[list[list], dict]:
@@ -406,7 +403,7 @@ class BaseHandler:
                 if include_input_log:
                     current_step_inference_log.append(
                         {
-                            "role": "inference_input",
+                            "role": "handler_log",
                             "content": inference_data.get("inference_input_log", ""),
                         }
                     )
@@ -540,7 +537,6 @@ class BaseHandler:
 
         return all_model_response, metadata
 
-    @final
     def inference_single_turn_FC(
         self, test_entry: dict, include_input_log: bool
     ) -> tuple[any, dict]:
@@ -563,7 +559,7 @@ class BaseHandler:
         if include_input_log:
             metadata["inference_log"] = [
                 {
-                    "role": "inference_input",
+                    "role": "handler_log",
                     "content": inference_data.get("inference_input_log", ""),
                 }
             ]
@@ -573,7 +569,6 @@ class BaseHandler:
 
         return model_response_data["model_responses"], metadata
 
-    @final
     def inference_single_turn_prompting(
         self, test_entry: dict, include_input_log: bool
     ) -> tuple[any, dict]:
@@ -594,7 +589,7 @@ class BaseHandler:
         if include_input_log:
             metadata["inference_log"] = [
                 {
-                    "role": "inference_input",
+                    "role": "handler_log",
                     "content": inference_data.get("inference_input_log", ""),
                 }
             ]
@@ -612,50 +607,31 @@ class BaseHandler:
         # This method takes raw model output and convert it to standard execute checker input.
         raise NotImplementedError
 
-    @final
-    def write(self, result, result_dir, update_mode=False):
+    def write(self, result):
+        # Controllo per la frase "Reached the limit of tests" nei valori della chiave "result"
+        if isinstance(result, dict) and "result" in result and "Reached the limit of tests" in result["result"]:
+            return
+        elif isinstance(result, list) and any(
+            "result" in entry and "Reached the limit of tests" in entry["result"] for entry in result
+        ):
+            return
+
         model_name_dir = self.model_name.replace("/", "_")
-        model_result_dir = result_dir / model_name_dir
+        model_result_dir = RESULT_PATH / model_name_dir
         model_result_dir.mkdir(parents=True, exist_ok=True)
 
         if isinstance(result, dict):
             result = [result]
 
-        # Collect and format each entry for JSON compatibility
-        entries_to_write = [make_json_serializable(entry) for entry in result]
-
-        # Group entries by their `test_category` for efficient file handling
-        file_entries = {}
-        for entry in entries_to_write:
+        for entry in result:
             test_category = entry["id"].rsplit("_", 1)[0]
-            file_name = f"{VERSION_PREFIX}_{test_category}_result.json"
-            file_path = model_result_dir / file_name
-            file_entries.setdefault(file_path, []).append(entry)
-
-        for file_path, entries in file_entries.items():
-            if update_mode:
-                # Load existing entries from the file
-                existing_entries = {}
-                if file_path.exists():
-                    existing_entries = {entry["id"]: entry for entry in load_file(file_path)}
-
-                # Update existing entries with new data
-                for entry in entries:
-                    existing_entries[entry["id"]] = entry
-
-                # Sort entries by `id` and write them back to ensure order consistency
-                sorted_entries = sorted(existing_entries.values(), key=sort_key)
-                with open(file_path, "w") as f:
-                    for entry in sorted_entries:
-                        f.write(json.dumps(entry) + "\n")
-
-            else:
-                # Normal mode: Append in sorted order
-                entries.sort(key=sort_key)
-                with open(file_path, "a") as f:
-                    for entry in entries:
-                        f.write(json.dumps(entry) + "\n")
-
+            file_to_write = f"{VERSION_PREFIX}_{test_category}_result.json"
+            file_to_write = model_result_dir / file_to_write
+            with open(file_to_write, "a+") as f:
+                # Assicura che i valori siano serializzabili in JSON
+                entry = make_json_serializable(entry)
+                json_str = json.dumps(entry)
+                f.write(json_str + "\n")
 
     #### FC methods ####
 

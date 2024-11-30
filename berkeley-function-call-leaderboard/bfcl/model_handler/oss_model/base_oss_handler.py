@@ -4,7 +4,6 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 
 import requests
-from bfcl.constant import RESULT_PATH, VERSION_PREFIX
 from bfcl.model_handler.base_handler import BaseHandler
 from bfcl.model_handler.model_style import ModelStyle
 from bfcl.model_handler.oss_model.constant import VLLM_PORT
@@ -15,11 +14,10 @@ from bfcl.model_handler.utils import (
     system_prompt_pre_processing_chat_model,
 )
 from openai import OpenAI
-from overrides import EnforceOverrides, final, override
 from tqdm import tqdm
 
 
-class OSSHandler(BaseHandler, EnforceOverrides):
+class OSSHandler(BaseHandler):
     def __init__(self, model_name, temperature, dtype="bfloat16") -> None:
         super().__init__(model_name, temperature)
         self.model_name_huggingface = model_name
@@ -27,7 +25,6 @@ class OSSHandler(BaseHandler, EnforceOverrides):
         self.dtype = dtype
         self.client = OpenAI(base_url=f"http://localhost:{VLLM_PORT}/v1", api_key="EMPTY")
 
-    @override
     def inference(self, test_entry: dict, include_input_log: bool, include_state_log: bool):
         """
         OSS models have a different inference method.
@@ -39,15 +36,12 @@ class OSSHandler(BaseHandler, EnforceOverrides):
             "OSS Models should call the batch_inference method instead."
         )
 
-    @override
     def decode_ast(self, result, language="Python"):
         return default_decode_ast_prompting(result, language)
 
-    @override
     def decode_execute(self, result):
         return default_decode_execute_prompting(result)
 
-    @final
     def batch_inference(
         self,
         test_entries: list[dict],
@@ -56,17 +50,15 @@ class OSSHandler(BaseHandler, EnforceOverrides):
         backend: str,
         include_input_log: bool,
         include_state_log: bool,
-        update_mode: bool,
-        result_dir=RESULT_PATH,
     ):
         """
         Batch inference for OSS models.
         """
         from transformers import AutoConfig, AutoTokenizer
 
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name_huggingface, trust_remote_code=True)
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name_huggingface)
 
-        config = AutoConfig.from_pretrained(self.model_name_huggingface, trust_remote_code=True)
+        config = AutoConfig.from_pretrained(self.model_name_huggingface)
         if hasattr(config, "max_position_embeddings"):
             self.max_context_length = config.max_position_embeddings
         elif self.tokenizer.model_max_length is not None:
@@ -198,7 +190,7 @@ class OSSHandler(BaseHandler, EnforceOverrides):
                     for future in futures:
                         # This will wait for the task to complete, so that we are always writing in order
                         result = future.result()
-                        self.write(result, result_dir, update_mode=update_mode)
+                        self.write(result)
                         pbar.update()
 
 
@@ -222,7 +214,6 @@ class OSSHandler(BaseHandler, EnforceOverrides):
             stdout_thread.join()
             stderr_thread.join()
             
-    @final
     def _multi_threaded_inference(self, test_case, include_input_log: bool, include_state_log: bool):
         """
         This is a wrapper function to make sure that, if an error occurs during inference, the process does not stop.
@@ -260,7 +251,6 @@ class OSSHandler(BaseHandler, EnforceOverrides):
             "OSS Models should implement their own prompt formatting."
         )
 
-    @override
     def _query_prompting(self, inference_data: dict):
         # We use the OpenAI Completions API
         function: list[dict] = inference_data["function"]
@@ -279,19 +269,13 @@ class OSSHandler(BaseHandler, EnforceOverrides):
         else:
             leftover_tokens_count = min(4096, self.max_context_length - input_token_count - 2)
 
-        extra_body = {}
         if hasattr(self, "stop_token_ids"):
-            extra_body["stop_token_ids"] = self.stop_token_ids
-        if hasattr(self, "skip_special_tokens"):
-            extra_body["skip_special_tokens"] = self.skip_special_tokens
-
-        if len(extra_body) > 0:
             api_response = self.client.completions.create(
                 model=self.model_name_huggingface,
                 temperature=self.temperature,
                 prompt=formatted_prompt,
                 max_tokens=leftover_tokens_count,
-                extra_body=extra_body,
+                extra_body={"stop_token_ids": self.stop_token_ids},
             )
         else:
             api_response = self.client.completions.create(
@@ -303,7 +287,6 @@ class OSSHandler(BaseHandler, EnforceOverrides):
 
         return api_response
 
-    @override
     def _pre_query_processing_prompting(self, test_entry: dict) -> dict:
         functions: list = test_entry["function"]
         test_category: str = test_entry["id"].rsplit("_", 1)[0]
@@ -316,29 +299,32 @@ class OSSHandler(BaseHandler, EnforceOverrides):
 
         return {"message": [], "function": functions}
 
-    @override
     def _parse_query_response_prompting(self, api_response: any) -> dict:
         return {
             "model_responses": api_response.choices[0].text,
             "input_token": api_response.usage.prompt_tokens,
             "output_token": api_response.usage.completion_tokens,
         }
+    
+    def _parse_query_response_prompting_llmcpp(self, api_response: any) -> dict:
+        return {
+        "model_responses": api_response['choices'][0]['text'],
+        "input_token": api_response['usage']['prompt_tokens'],
+        "output_token": api_response['usage']['completion_tokens'],
+        }
 
-    @override
     def add_first_turn_message_prompting(
         self, inference_data: dict, first_turn_message: list[dict]
     ) -> dict:
         inference_data["message"].extend(first_turn_message)
         return inference_data
 
-    @override
     def _add_next_turn_user_message_prompting(
         self, inference_data: dict, user_message: list[dict]
     ) -> dict:
         inference_data["message"].extend(user_message)
         return inference_data
 
-    @override
     def _add_assistant_message_prompting(
         self, inference_data: dict, model_response_data: dict
     ) -> dict:
@@ -347,7 +333,6 @@ class OSSHandler(BaseHandler, EnforceOverrides):
         )
         return inference_data
 
-    @override
     def _add_execution_results_prompting(
         self, inference_data: dict, execution_results: list[str], model_response_data: dict
     ) -> dict:
