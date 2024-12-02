@@ -52,20 +52,22 @@ def v002_generator_bfcl(test_entry, agent_network):
       # MODEL_NAME_BFCL = 'Qwen/Qwen2.5-1.5B-Instruct'
       # MODEL_NAME_BFCL ="meta-llama/Llama-3.2-3B-Instruct"
       # MODEL_NAME_BFCL ="meta-llama/Llama-3.1-8B-Instruct"
-      MODEL_NAME_BFCL = "Qwen/Qwen2.5-7B-Instruct"
-      # MODEL_NAME_BFCL = "Qwen/Qwen2.5-3B-Instruct"
+      # MODEL_NAME_BFCL = "Qwen/Qwen2.5-7B-Instruct"
+      MODEL_NAME_BFCL = "Qwen/Qwen2.5-3B-Instruct"
       local_endpoint = "http://localhost:8080/v1/chat/completions"
       qwen_1_5b_endpoint = "https://qczw73rk6noiiz27.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions" 
       qwen_3b_endpoint = "https://ffsur9kuz8bomzwn.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions"
+      qwen_3b_nq_endpoint = "https://h0vd6ha2d0mswwgk.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions"
       qwen_7b_endpoint = "https://hkkt5ay0stiz2sxy.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions"
       llama_3b_endpoint ="https://e36nbky8k2b92hp5.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions"
       llama_8b_endpoint ="https://l41j2vkrxy8txnck.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions"
-      huggingface_endpoint_url = local_endpoint
+
+      huggingface_endpoint_url = qwen_3b_nq_endpoint
       
     TEMPERATURE = 0.1
     MAX_TURNS = 4
     N_TESTS = 2
-    with_agent =True
+    with_agent =False
 
     if with_agent:
 

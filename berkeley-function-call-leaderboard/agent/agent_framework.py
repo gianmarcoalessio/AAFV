@@ -116,7 +116,7 @@ class OpenSourceAgent(Agent):
                 formatted_prompt,
                 max_tokens=4096,
                 stop=self.stop_token_ids,
-                top_p=0.5,
+                top_p=0.95,
                 temperature=self.temperature,
                 echo=False,
             )
